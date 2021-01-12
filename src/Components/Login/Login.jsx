@@ -3,7 +3,7 @@ import "./Login.css";
 
 function Login(){
 const clientID  = process.env.REACT_APP_CLIENT_ID;
-const redirectUri = "http://localhost:3000/";
+const redirectUri = "http://localhost:3000/queue";
 const scopes =['user-modify-playback-state', 'user-read-private']
 
 const login = ()=>{

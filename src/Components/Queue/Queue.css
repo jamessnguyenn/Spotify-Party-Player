@@ -1,0 +1,125 @@
+.queue-page{
+    display:flex;
+    height:100vh;
+}
+
+.queue-container{
+    display:flex;
+    flex-direction: column;
+    width:100%;
+}
+.title-container{
+    text-align:center;
+}
+.form-container{
+    margin-top: 20px;
+    display:flex;
+    flex-direction: column;
+
+}
+.information-container{
+    width:100%;
+    margin-top: 20px;
+    display:flex;
+    flex-direction:column;
+}
+.list-container{
+
+    text-align: center;
+}
+.add-button{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width:400px;
+    font-size:20px;
+    border-radius: 40px;
+    background-color:#1DB954;
+    color: white;
+    padding: 10px;
+    font-weight:bold;
+    border: none;
+    outline:none;
+    margin-left:auto;
+    margin-right: auto;
+}
+.add-button:hover{
+    color:black;
+    cursor:pointer;
+}
+.song-text-field{
+    font-size:20px;
+    width:400px;
+    outline: none;
+    border-top-style: hidden;
+    border-right-style: hidden;
+    border-left-style: hidden;
+    border-color:black;
+    margin-left:auto;
+    margin-right: auto;
+    background-color: transparent;
+    box-sizing:boder-box;
+}
+.random-button{
+    
+    width:400px;
+    font-size:20px;
+    border-radius: 40px;
+    background-color:black;
+    color: white;
+    padding: 10px;
+    font-weight:bold;
+    border: none;
+    outline:none;
+    margin-left:auto;
+    margin-right: auto;
+}
+.random-button:hover{
+    color:#1DB954;
+    cursor:pointer;
+}
+h1{
+    font-weight:bold;
+    font-size:70px;
+}
+.listener-text{
+    font-size:30px;
+}
+.queue-title{
+    font-size:25px;
+}
+.text-field-container{
+    text-align: center;
+    flex-direction: column;
+
+    width:400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+ul{
+    width:402px;
+    list-style-type: none;
+    position: absolute;
+    border: 1px solid black;
+    border-top-style: hidden;
+    background-color: white;
+    text-align:left;
+    margin:0;
+    overflow: scroll;
+    overflow-x: hidden;
+    height:200px;
+    padding:0;
+}
+
+ul::before{
+    border:none;
+}
+
+li{
+    padding: 10px 5px;
+}
+
+li:hover{
+    cursor: pointer;
+    background-color:lightgrey;
+}
