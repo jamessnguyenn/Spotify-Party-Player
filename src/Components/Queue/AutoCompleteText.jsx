@@ -9,7 +9,10 @@ function AutoCompleteText(){
 
     useEffect(()=>{
         document.addEventListener('mousedown', handleClick, false);
-    })
+        return () => {
+            document.removeEventListener("mousedown", handleClick);
+          };
+    },[])
 
 
     function songSelected(selectedItem){
@@ -17,9 +20,11 @@ function AutoCompleteText(){
         setSongs([]);
     }
     const handleClick = e =>{
-        if(!node.current.contains(e.target)){
-            setSongs([]);
+        if(node.current.contains(e.target)){
+            return;
         }
+        setSongs([]);
+        
     }
     const updateList = e =>{
         setTextField(e.target.value);
