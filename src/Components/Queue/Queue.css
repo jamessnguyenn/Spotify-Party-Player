@@ -29,8 +29,11 @@
     margin-left: auto;
 }
 .list-container{
+    padding:10px;
+    background-color:white;
     width:400px;
-    height:20vh;
+    border-radius:20px;
+    height:30vh;
     border-color: black;
     border: 1px solid black;
     margin-top:20px;
@@ -85,7 +88,7 @@
     margin-right: auto;
 }
 .random-button:hover{
-    color:#1DB954;
+    color:#1DB95e;
     cursor:pointer;
 }
 h1{
@@ -99,7 +102,7 @@ h1{
 }
 .queue-title{
     font-size:15px;
-    margin-left:10px;
+    color:black;
 }
 .text-field-container{
     text-align: center;
@@ -136,4 +139,8 @@ li{
 li:hover{
     cursor: pointer;
     background-color:lightgrey;
+}
+.error-label{
+    color:red;
+    margin-top:6px;
 }

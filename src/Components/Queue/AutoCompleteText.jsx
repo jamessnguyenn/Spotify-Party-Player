@@ -23,7 +23,7 @@ function AutoCompleteText({textField, updateList, songSelected, songs, clearSong
 
     return(
         <div ref={node}className="text-field-container">
-             <input type="text" value={textField} placeholder="Search a Song / Enter a URI" className="song-text-field" onChange={updateList}/>
+             <input type="text" value={textField} placeholder="Search for song or enter a uri" className="song-text-field" onChange={updateList}/>
            {songs.length!=0 && <ul>
                 {songs.map((item)=> <li onClick={()=>songSelected(item)}>{item.name}</li>)}
             </ul>}
