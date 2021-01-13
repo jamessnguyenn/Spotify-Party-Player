@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 
 .login-page{
+    background-color: #121212;
    background-image: url(./images/signup-bg.svg);
     background-size:100%;
     background-position:center;
@@ -23,9 +24,12 @@
 .login-title{
     font-size: 60px;
     font-weight: bold;
+    margin-bottom:20px;
+    margin-top:40px;
     
 }
 .sub-text-container{
+    color:white;
     font-size:20px;
     text-align: center;
     margin-bottom:30px;
@@ -50,10 +54,7 @@
 .button-container{
     text-align: center;
 }
-h1{
-    margin-bottom:20px;
-    margin-top:40px;
-}
+
 .login-button:hover{
     color:black;
     cursor:pointer;

@@ -1,22 +1,23 @@
-function QueueList(queueList){
 
 
+function QueueList({ queueList }) {
 
-    return(
+    return (
         <div className="list-container">
-        <label className="queue-title">Queue History</label>
-        <table id="queue-table">
-        <tr>
-            <td><img src="https://i.scdn.co/image/ab67616d000048514246e3158421f5abb75abc4f" width="40" height="40"/></td>
-            <td>Adore You</td>
-            <td>Harry Styles</td>
-            <td>James Nguyenssssss</td>
+            <label className="queue-title">Queue Session History</label>
+            <table id="queue-table">
 
-        </tr> 
-            
+                {queueList.map((element) => {
+                    return <tr>
+                        <td><img src={element.image} width="40" height="40" /></td>
+                        <td>{element.track}</td>
+                        <td>{element.artist}</td>
+                        <td>James Nguyen</td>
+                    </tr>
+                })}
 
-        </table>
-      </div>
+            </table>
+        </div>
     );
 }
 export default QueueList;

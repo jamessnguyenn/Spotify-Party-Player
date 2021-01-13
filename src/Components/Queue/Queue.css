@@ -1,11 +1,15 @@
 .queue-page{
     display:flex;
     height:100vh;
+    background-color:#121212;
     background-image:url(./images/music.svg);
     background-repeat: no-repeat;
     background-position: center;
     background-size: 100%;
 }
+input:focus::placeholder {
+    color: transparent;
+  }
 
 .queue-container{
     margin: auto;
@@ -30,7 +34,7 @@
 }
 .list-container{
     padding:10px;
-    background-color:white;
+    background-color:black;
     width:400px;
     border-radius:20px;
     height:30vh;
@@ -40,7 +44,23 @@
     margin-left:auto;
     margin-right:auto;
     text-align: left;
+    overflow-y: scroll;
 }
+.list-container::-webkit-scrollbar-thumb{
+border-radius: 10px;
+  
+}
+.list-container::-webkit-scrollbar-track{
+    margin-top:20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+   
+}
+td{
+    padding: 10px;
+    color:white;
+}
+
 .add-button{
     margin-top: 20px;
     margin-bottom: 20px;
@@ -67,19 +87,27 @@
     border-top-style: hidden;
     border-right-style: hidden;
     border-left-style: hidden;
-    border-color:black;
+    border-color:white;
     margin-left:auto;
+    
     margin-right: auto;
     background-color: transparent;
     box-sizing:boder-box;
+}
+input[type=text]{
+    color:white;
+}
+::placeholder{
+    color:white;
+    
 }
 .random-button{
     
     width:400px;
     font-size:20px;
     border-radius: 40px;
-    background-color:black;
-    color: white;
+    background-color:white;
+    color: #1DB95e;
     padding: 10px;
     font-weight:bold;
     border: none;
@@ -88,21 +116,22 @@
     margin-right: auto;
 }
 .random-button:hover{
-    color:#1DB95e;
+    color: black;
     cursor:pointer;
 }
 h1{
     font-weight:bold;
-    font-size:40px;
+    font-size:50px;
     margin-bottom:5px;
+    color:white;
 }
 .listener-text{
     font-size:15px;
-    color: grey;
+    color: white;
 }
 .queue-title{
     font-size:15px;
-    color:black;
+    color:#1DB95e;
 }
 .text-field-container{
     text-align: center;
@@ -124,7 +153,7 @@ ul{
     margin:0;
     overflow: scroll;
     overflow-x: hidden;
-    height:200px;
+    height:20vh;
     padding:0;
 }
 
@@ -143,4 +172,7 @@ li:hover{
 .error-label{
     color:red;
     margin-top:6px;
+}
+.queue-table{
+    overflow: scroll;
 }

@@ -13,7 +13,7 @@ function Queue() {
   const values = queryString.parse(window.location.hash);
   const [songs, setSongs] = useState([]);
   const [textField, setTextField] = useState('');
-  const [queue, setQueue] = useState([]);
+  const [queueList, setQueueList] = useState([]);
 
   async function getRandomHit() {
     const proxyurl = "https://cors-anywhere.herokuapp.com/";
@@ -134,7 +134,15 @@ function Queue() {
             setError(err.response.data.error.message);
             setShowError(true);
           })
-
+        const queueItem = {
+          artist:res.data.tracks.items[0].artists[0].name,
+          track:res.data.tracks.items[0].name,
+          image:res.data.tracks.items[0].album.images[res.data.tracks.items[0].album.images.length-1].url
+        };
+        const copyQueueList = [...queueList];
+        copyQueueList.push(queueItem);
+        setQueueList(copyQueueList); 
+        console.log(queueList);
       })
       .catch(err=>{
         console.log(err);
@@ -147,9 +155,9 @@ function Queue() {
       <div className="queue-container">
         <div className="title-container">
           <h1>Welcome to the Queue!</h1>
-          <label className="listener-text">0 people listening to new music with you</label>
+          <label className="listener-text">0 people exploring new music with you</label>
         </div>
-         <QueueList/>
+        <QueueList queueList={queueList}/>
         <div className="information-container">
           <div className="form-container">
             <AutoCompleteText textField={textField} updateList={updateList} songSelected={songSelected} songs={songs} clearSongs={clearSongs} />
