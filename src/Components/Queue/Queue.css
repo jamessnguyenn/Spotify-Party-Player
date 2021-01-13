@@ -1,9 +1,14 @@
 .queue-page{
     display:flex;
     height:100vh;
+    background-image:url(./images/music.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100%;
 }
 
 .queue-container{
+    margin: auto;
     display:flex;
     flex-direction: column;
     width:100%;
@@ -17,15 +22,21 @@
     flex-direction: column;
 
 }
-.information-container{
-    width:100%;
-    margin-top: 20px;
+.information-container{  
     display:flex;
     flex-direction:column;
+    margin-right:auto;
+    margin-left: auto;
 }
 .list-container{
-
-    text-align: center;
+    width:400px;
+    height:20vh;
+    border-color: black;
+    border: 1px solid black;
+    margin-top:20px;
+    margin-left:auto;
+    margin-right:auto;
+    text-align: left;
 }
 .add-button{
     margin-top: 20px;
@@ -47,7 +58,7 @@
     cursor:pointer;
 }
 .song-text-field{
-    font-size:20px;
+    font-size:18px;
     width:400px;
     outline: none;
     border-top-style: hidden;
@@ -79,13 +90,16 @@
 }
 h1{
     font-weight:bold;
-    font-size:70px;
+    font-size:40px;
+    margin-bottom:5px;
 }
 .listener-text{
-    font-size:30px;
+    font-size:15px;
+    color: grey;
 }
 .queue-title{
-    font-size:25px;
+    font-size:15px;
+    margin-left:10px;
 }
 .text-field-container{
     text-align: center;

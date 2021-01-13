@@ -1,11 +1,9 @@
 import { useEffect, useState, useRef } from "react";
 import axios from 'axios';
 import queryString from 'query-string';
-function AutoCompleteText(){
-    const node = useRef();
-    const values = queryString.parse(window.location.hash);
-    const[textField, setTextField] = useState('');
-    const [songs, setSongs] = useState([]);
+function AutoCompleteText({textField, updateList, songSelected, songs, clearSongs}){
+   
+   const node = useRef();
 
     useEffect(()=>{
         document.addEventListener('mousedown', handleClick, false);
@@ -14,38 +12,14 @@ function AutoCompleteText(){
           };
     },[])
 
-
-    function songSelected(selectedItem){
-        setTextField(selectedItem.uri);
-        setSongs([]);
-    }
+    
     const handleClick = e =>{
         if(node.current.contains(e.target)){
             return;
         }
-        setSongs([]);
+        clearSongs();
         
-    }
-    const updateList = e =>{
-        setTextField(e.target.value);
-        const queryURL = queryString.stringifyUrl({url: 'https://api.spotify.com/v1/search', query: {q: e.target.value, type: 'track'}});
-        axios.get(queryURL, {
-        headers:{
-            'Authorization': 'Bearer ' + values.access_token
-        }
-        })
-        .then(res =>{
-        const items  = res.data.tracks.items;
-        const songList = []
-        items.forEach(element=>{
-            songList.push({name: element.name+" by " +element.artists[0].name , uri: element.uri})
-        });
-        setSongs(songList);
-        })
-        .catch(err=>{
-        setSongs([]);
-        })
-    };
+      }
 
     return(
         <div ref={node}className="text-field-container">
