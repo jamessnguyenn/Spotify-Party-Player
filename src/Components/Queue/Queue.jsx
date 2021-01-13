@@ -141,7 +141,7 @@ function Queue() {
         };
         const copyQueueList = [...queueList];
         copyQueueList.push(queueItem);
-        setQueueList(copyQueueList); 
+        setQueueList(copyQueueList.reverse()); 
         console.log(queueList);
       })
       .catch(err=>{
