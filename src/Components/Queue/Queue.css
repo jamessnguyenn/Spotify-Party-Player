@@ -182,3 +182,22 @@ li:hover{
     color:red;
     margin-top:6px;
 }
+td{
+    word-wrap:break-word;
+}
+table{
+    width:100%;
+}
+.image-column{
+    width:10%;
+}
+.track-column{
+    width:40%;
+    max-width:1px;
+}
+.artist-column{
+    width:20%;
+}
+.name-column{
+    width:20%;
+}

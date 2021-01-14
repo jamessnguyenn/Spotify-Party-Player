@@ -3,7 +3,7 @@ import "./Login.css";
 
 function Login(){
 const clientID  = process.env.REACT_APP_CLIENT_ID;
-const redirectUri = "https://spotify-queue-party.herokuapp.com/queue";//"http://localhost:3000/queue"; use this to run locally
+const redirectUri = "https://spotify-queue-party.herokuapp.com/queue";//"http://localhost:3000/queue"; 
 const scopes =['user-modify-playback-state', 'user-read-private']
 
 const login = ()=>{
