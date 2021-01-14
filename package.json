@@ -17,8 +17,8 @@
     "socket.io-client": "^3.0.5",
     "web-vitals": "^0.2.4"
   },
-  "engines":{
-    "node":"12.18.3"
+  "engines": {
+    "node": "12.18.3"
   },
   "scripts": {
     "start": "react-scripts start",
