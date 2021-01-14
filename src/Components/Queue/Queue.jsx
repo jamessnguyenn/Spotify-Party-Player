@@ -19,27 +19,28 @@ function Queue() {
   const[userNumber, setUserNumber] = useState();
   let history = useHistory();
  
-  socket.on('userUpdate', number =>  setUserNumber(number));
-  socket.on('broadcastQueue', queueItem=>{
-    const copyQueueList = [queueItem, ...queueList];
-    setQueueList(copyQueueList); 
-    const queryURL = queryString.stringifyUrl({ url: "https://api.spotify.com/v1/me/player/queue", query: { uri: queueItem.uri } })
-    axios.post(queryURL, null, {
-      headers: {
-        'Authorization': 'Bearer ' + values.access_token
-      }
-    })
-      .then(res => "Successfuly added")
-      .catch(err =>{
-        if(err.response.status == 401){
-          history.push('/');
-       }
-      })
-
-
-  });
+ 
 
   useEffect(()=>{
+    socket.on('userUpdate', number =>  setUserNumber(number));
+    socket.on('broadcastQueue', queueItem=>{
+      console.log("this is happening");
+      setQueueList(prevQueueList => [queueItem, ...prevQueueList]); 
+      const queryURL = queryString.stringifyUrl({ url: "https://api.spotify.com/v1/me/player/queue", query: { uri: queueItem.uri } })
+      axios.post(queryURL, null, {
+        headers: {
+          'Authorization': 'Bearer ' + values.access_token
+        }
+      })
+        .then(res => "Successfuly added")
+        .catch(err =>{
+          if(err.response.status == 401){
+            history.push('/');
+         }
+        })
+  
+  
+    });
     axios.get("https://api.spotify.com/v1/me",{
       headers:{
         'Authorization': 'Bearer '+ values.access_token
@@ -60,6 +61,13 @@ function Queue() {
   
     return () => socket.disconnect();
   },[]);
+
+
+  const addToQueue = queueItem => {
+
+    
+
+  }
 
   async function getRandomHit() {
     const proxyurl = "https://api.allorigins.win/raw?url=";
