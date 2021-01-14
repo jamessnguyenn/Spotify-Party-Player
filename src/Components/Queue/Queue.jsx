@@ -183,6 +183,7 @@ function Queue() {
 
   const queueRandomSong = async () => {
     const result = await getRandomHit();
+    setShowError(false);
     const queryURL = queryString.stringifyUrl({ url: 'https://api.spotify.com/v1/search', query: { q: result.song, type: 'track' } });
     axios.get(queryURL, {
       headers: {
