@@ -6,3 +6,7 @@ Can't make a decision of what music to queue with other users? You can queue a r
 ## Release Build 1.0 is Out
 
 Try the application out and connect with people through music. https://spotify-queue-party.herokuapp.com/. Servers down? Feel free to clone the repository and add your own client id and any twist you'd like!
+
+<img src="https://i.ibb.co/LNSyhmK/image.png"
+     alt="Spotify Queue Sample Image"
+     style="float: center;" />
