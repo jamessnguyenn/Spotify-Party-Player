@@ -19,7 +19,7 @@ io.on('connection', socket =>{
         io.emit('userUpdate', io.engine.clientsCount);
     })
     socket.on('addQueue', (queueItem)=>{
-        socket.broadcast.emit('addQueue', queueItem);
+        socket.broadcast.emit('broadcastQueue', queueItem);
     })
 })
 

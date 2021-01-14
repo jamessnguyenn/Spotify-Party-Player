@@ -20,7 +20,7 @@ function Queue() {
   let history = useHistory();
  
   socket.on('userUpdate', number =>  setUserNumber(number));
-  socket.on('addQueue', queueItem=>{
+  socket.on('broadcastQueue', queueItem=>{
     const copyQueueList = [queueItem, ...queueList];
     setQueueList(copyQueueList); 
     const queryURL = queryString.stringifyUrl({ url: "https://api.spotify.com/v1/me/player/queue", query: { uri: queueItem.uri } })
