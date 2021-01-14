@@ -2,8 +2,9 @@ import axios from 'axios';
 import cheerio from 'cheerio';
 import queryString from 'query-string';
 import { useEffect, useState } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import AutoCompleteText from './AutoCompleteText';
+import {socket} from "../../socket";
 
 import "./Queue.css";
 import QueueList from './QueueList';
@@ -14,9 +15,54 @@ function Queue() {
   const [songs, setSongs] = useState([]);
   const [textField, setTextField] = useState('');
   const [queueList, setQueueList] = useState([]);
+  const [name, setName] = useState([]);
+  const[userNumber, setUserNumber] = useState();
+  let history = useHistory();
+ 
+  socket.on('userUpdate', number =>  setUserNumber(number));
+  socket.on('addQueue', queueItem=>{
+    const copyQueueList = [queueItem, ...queueList];
+    setQueueList(copyQueueList); 
+    const queryURL = queryString.stringifyUrl({ url: "https://api.spotify.com/v1/me/player/queue", query: { uri: queueItem.uri } })
+    axios.post(queryURL, null, {
+      headers: {
+        'Authorization': 'Bearer ' + values.access_token
+      }
+    })
+      .then(res => "Successfuly added")
+      .catch(err =>{
+        if(err.response.status == 401){
+          history.push('/');
+       }
+      })
+
+
+  });
+
+  useEffect(()=>{
+    axios.get("https://api.spotify.com/v1/me",{
+      headers:{
+        'Authorization': 'Bearer '+ values.access_token
+      }
+    })
+    .then(res=>{
+      if(res.data.display_name == null){
+        setName('Anonymous');
+      }else{
+        setName(res.data.display_name);
+      }
+    })
+    .catch(err=>{
+     if(err.response.status == 401){
+        history.push('/');
+     }
+    })
+  
+    return () => socket.disconnect();
+  },[]);
 
   async function getRandomHit() {
-    const proxyurl = "https://cors-anywhere.herokuapp.com/";
+    const proxyurl = "https://api.allorigins.win/raw?url=";
     const url = "https://www.billboard.com/charts/hot-100";
 
     const response = await axios.get(proxyurl + url)
@@ -57,8 +103,6 @@ function Queue() {
 
     return rndSong;
 
-
-
   }
 
   const updateList = e => {
@@ -79,6 +123,9 @@ function Queue() {
         setSongs(songList);
       })
       .catch(err => {
+        if(err.response.status == 401){
+          history.push('/');
+       }
         setSongs([]);
       })
   };
@@ -94,6 +141,7 @@ function Queue() {
   }
 
   const queueSong = () => {
+    const uri=textField;
     const queryURL = queryString.stringifyUrl({ url: "https://api.spotify.com/v1/me/player/queue", query: { uri: textField } })
     axios.post(queryURL, null, {
       headers: {
@@ -101,16 +149,38 @@ function Queue() {
       }
     })
       .then(res => {
-        console.log("Sucessfully Added");
+       
+        axios.get('https://api.spotify.com/v1/tracks/'+ textField.substring(14),{
+          headers:{
+            'Authorization': 'Bearer ' + values.access_token
+          }
+        })
+        .then(res=>{
+          const queueItem = {
+            artist:res.data.artists[0].name,
+            track:res.data.name,
+            image:res.data.album.images[res.data.album.images.length-1].url,
+            name: name,
+            uri:uri
+          }
+          socket.emit('addQueue', queueItem);
+          const copyQueueList = [queueItem, ...queueList];
+
+          setQueueList(copyQueueList); 
+        })
+
         setTextField('');
       })
       .catch(err => {
-        console.log(err.response.data);
+        if(err.response.status == 401){
+          history.push('/');
+       }
         setError(err.response.data.error.message);
         setShowError(true);
       })
 
   }
+
   const queueRandomSong = async () => {
     const result = await getRandomHit();
     const queryURL = queryString.stringifyUrl({ url: 'https://api.spotify.com/v1/search', query: { q: result.song, type: 'track' } });
@@ -120,7 +190,15 @@ function Queue() {
       }
     })
       .then(res => {
+        const uri = res.data.tracks.items[0].uri;
         const queryURL = queryString.stringifyUrl({ url: "https://api.spotify.com/v1/me/player/queue", query: { uri: res.data.tracks.items[0].uri } })
+         const queueItem = {
+          artist:res.data.tracks.items[0].artists[0].name,
+          track:res.data.tracks.items[0].name,
+          image:res.data.tracks.items[0].album.images[res.data.tracks.items[0].album.images.length-1].url,
+          name: name,
+          uri: uri
+        };
         axios.post(queryURL, null, {
           headers: {
             'Authorization': 'Bearer ' + values.access_token
@@ -128,23 +206,26 @@ function Queue() {
         })
           .then(res => {
             console.log("Sucessfully Added");
+            const copyQueueList = [queueItem, ...queueList];
+            socket.emit('addQueue', queueItem);
+            setQueueList(copyQueueList); 
+           
           })
           .catch(err => {
+           if(err.response.status == 401){
+              history.push('/');
+           }
             console.log(err.response.data);
             setError(err.response.data.error.message);
             setShowError(true);
+            console.log(err)
           })
-        const queueItem = {
-          artist:res.data.tracks.items[0].artists[0].name,
-          track:res.data.tracks.items[0].name,
-          image:res.data.tracks.items[0].album.images[res.data.tracks.items[0].album.images.length-1].url
-        };
-        const copyQueueList = [...queueList];
-        copyQueueList.push(queueItem);
-        setQueueList(copyQueueList.reverse()); 
-        console.log(queueList);
+       
       })
       .catch(err=>{
+        if(err.response.status == 401){
+          history.push('/');
+       }
         console.log(err);
       });
 
@@ -155,7 +236,7 @@ function Queue() {
       <div className="queue-container">
         <div className="title-container">
           <h1>Welcome to the Queue!</h1>
-          <label className="listener-text">0 people exploring new music with you</label>
+          <label className="listener-text">{userNumber} {userNumber==1? 'person' : 'people'} exploring new music together</label>
         </div>
         <QueueList queueList={queueList}/>
         <div className="information-container">

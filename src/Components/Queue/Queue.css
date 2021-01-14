@@ -35,7 +35,7 @@ input:focus::placeholder {
 .list-container{
     padding:10px;
     background-color:black;
-    width:400px;
+    width:500px;
     border-radius:20px;
     height:30vh;
     border-color: black;
@@ -45,6 +45,7 @@ input:focus::placeholder {
     margin-right:auto;
     text-align: left;
     overflow-y: scroll;
+    overflow-x:hidden;
 }
 .list-container::-webkit-scrollbar-thumb{
 border-radius: 10px;
@@ -78,7 +79,11 @@ td{
 }
 .add-button:hover{
     color:black;
+    background-color: #1ED760;
     cursor:pointer;
+}
+.add-button:active{
+    background-color:#18ac4d
 }
 .song-text-field{
     font-size:18px;
@@ -119,6 +124,9 @@ input[type=text]{
 .random-button:hover{
     color: black;
     cursor:pointer;
+}
+.random-button:active{
+    background-color: whitesmoke;
 }
 h1{
     font-weight:bold;
@@ -173,7 +181,4 @@ li:hover{
 .error-label{
     color:red;
     margin-top:6px;
-}
-.queue-table{
-    overflow: scroll;
 }

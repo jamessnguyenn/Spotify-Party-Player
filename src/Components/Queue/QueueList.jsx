@@ -12,7 +12,7 @@ function QueueList({ queueList }) {
                         <td><img src={element.image} width="40" height="40" /></td>
                         <td>{element.track}</td>
                         <td>{element.artist}</td>
-                        <td>James Nguyen</td>
+                        <td>{element.name}</td>
                     </tr>
                 })}
 
