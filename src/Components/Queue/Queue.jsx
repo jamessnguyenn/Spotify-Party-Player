@@ -24,7 +24,7 @@ function Queue() {
   useEffect(()=>{
     socket.on('userUpdate', number =>  setUserNumber(number));
     socket.on('broadcastQueue', queueItem=>{
-      console.log("this is happening");
+      console.log("Broadcasted!");
       setQueueList(prevQueueList => [queueItem, ...prevQueueList]); 
       const queryURL = queryString.stringifyUrl({ url: "https://api.spotify.com/v1/me/player/queue", query: { uri: queueItem.uri } })
       axios.post(queryURL, null, {
@@ -172,9 +172,7 @@ function Queue() {
             uri:uri
           }
           socket.emit('addQueue', queueItem);
-          const copyQueueList = [queueItem, ...queueList];
-
-          setQueueList(copyQueueList); 
+          setQueueList(prevQueueList => [queueItem, ...prevQueueList]); 
         })
 
         setTextField('');
@@ -215,9 +213,8 @@ function Queue() {
         })
           .then(res => {
             console.log("Sucessfully Added");
-            const copyQueueList = [queueItem, ...queueList];
             socket.emit('addQueue', queueItem);
-            setQueueList(copyQueueList); 
+            setQueueList(prevQueueList => [queueItem, ...prevQueueList]); 
            
           })
           .catch(err => {
