@@ -34,7 +34,7 @@ function Queue() {
       })
         .then(res => "Successfuly added")
         .catch(err =>{
-          if(err.response.status == 401){
+          if(err.response.status === 401){
             history.push('/');
          }
         })
@@ -54,7 +54,7 @@ function Queue() {
       }
     })
     .catch(err=>{
-     if(err.response.status == 401){
+     if(err.response.status === 401){
         history.push('/');
      }
     })
@@ -62,12 +62,6 @@ function Queue() {
     return () => socket.disconnect();
   },[]);
 
-
-  const addToQueue = queueItem => {
-
-    
-
-  }
 
   async function getRandomHit() {
     const proxyurl = "https://api.allorigins.win/raw?url=";
@@ -86,19 +80,18 @@ function Queue() {
 
     //Songs names
     var topSongs = [];
-    $("ol[class='chart-list__elements']")
+    $("div[class='chart-results-list // lrv-u-padding-t-150 lrv-u-padding-t-050@mobile-max']")
       .find(
-        "span[class='chart-element__information__song text--truncate color--primary']"
+        "h3[class='c-title  a-no-trucate a-font-primary-bold-s u-letter-spacing-0021 lrv-u-font-size-18@tablet lrv-u-font-size-16 u-line-height-125 u-line-height-normal@mobile-max a-truncate-ellipsis u-max-width-330 u-max-width-230@tablet-only']"
       )
       .each(function (i, element) {
         topSongs.push(element.children[0].data);
       });
-
     //Artists names
     var artists = [];
-    $("ol[class='chart-list__elements']")
+    $("div[class='chart-results-list // lrv-u-padding-t-150 lrv-u-padding-t-050@mobile-max']")
       .find(
-        "span[class='chart-element__information__artist text--truncate color--secondary']"
+        "span[class='c-label  a-no-trucate a-font-primary-s lrv-u-font-size-14@mobile-max u-line-height-normal@mobile-max u-letter-spacing-0021 lrv-u-display-block a-truncate-ellipsis-2line u-max-width-330 u-max-width-230@tablet-only']"
       )
       .each(function (i, element) {
         artists.push(element.children[0].data);
@@ -108,7 +101,6 @@ function Queue() {
     var pos = Math.floor(Math.random() * 101);
 
     rndSong = { artist: artists[pos], song: topSongs[pos] };
-
     return rndSong;
 
   }
@@ -131,7 +123,7 @@ function Queue() {
         setSongs(songList);
       })
       .catch(err => {
-        if(err.response.status == 401){
+        if(err.response.status === 401){
           history.push('/');
        }
         setSongs([]);
@@ -178,7 +170,7 @@ function Queue() {
         setTextField('');
       })
       .catch(err => {
-        if(err.response.status == 401){
+        if(err.response.status === 401){
           history.push('/');
        }
         setError(err.response.data.error.message);
@@ -218,7 +210,7 @@ function Queue() {
            
           })
           .catch(err => {
-           if(err.response.status == 401){
+           if(err.response.status === 401){
               history.push('/');
            }
             console.log(err.response.data);
@@ -229,7 +221,7 @@ function Queue() {
        
       })
       .catch(err=>{
-        if(err.response.status == 401){
+        if(err.response.status === 401){
           history.push('/');
        }
         console.log(err);
@@ -242,7 +234,7 @@ function Queue() {
       <div className="queue-container">
         <div className="title-container">
           <h1>Welcome to the Queue!</h1>
-          <label className="listener-text">{userNumber} {userNumber==1? 'person' : 'people'} exploring new music together</label>
+          <label className="listener-text">{userNumber} {userNumber===1? 'person' : 'people'} exploring new music together</label>
         </div>
         <QueueList queueList={queueList}/>
         <div className="information-container">
